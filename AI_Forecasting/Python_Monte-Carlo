@@ -1,0 +1,16 @@
+# Monte Carlo simulation (advanced & highly realistic)
+# Instead of defining fixed best/worst values, simulate thousands of future scenarios.
+
+import numpy as np
+
+n = 10000
+
+volume = np.random.normal(100000, 15000, n)
+price = np.random.normal(50, 3, n)
+var_cost = np.random.normal(20, 2, n)
+
+profit = price*volume - (1_000_000 + var_cost*volume)
+
+print("Expected Profit:", np.mean(profit))
+print("Worst 5%:", np.percentile(profit, 5))
+print("Best 5%:", np.percentile(profit, 95))
