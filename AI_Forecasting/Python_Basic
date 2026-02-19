@@ -1,0 +1,39 @@
+# Simple Python solution (classic & fast)
+# Using pandas to make this very efficient.
+# Example: Extending the basic scenario
+
+import pandas as pd
+
+# Basisszenario
+base = {
+    "price": 50,
+    "volume": 100_000,
+    "var_cost": 20,
+    "fixed_cost": 1_000_000
+}
+
+def calc_profit(s):
+    revenue = s["price"] * s["volume"]
+    cost = s["fixed_cost"] + s["var_cost"] * s["volume"]
+    return revenue - cost
+
+# Szenarien definieren
+scenarios = {
+    "Base": base,
+    "Best": {
+        "price": base["price"] * 1.05,
+        "volume": base["volume"] * 1.10,
+        "var_cost": base["var_cost"] * 0.95,
+        "fixed_cost": base["fixed_cost"]
+    },
+    "Worst": {
+        "price": base["price"] * 0.95,
+        "volume": base["volume"] * 0.85,
+        "var_cost": base["var_cost"] * 1.08,
+        "fixed_cost": base["fixed_cost"] * 1.03
+    }
+}
+
+# Berechnung
+results = {name: calc_profit(s) for name, s in scenarios.items()}
+print(results)
