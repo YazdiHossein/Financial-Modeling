@@ -1,0 +1,23 @@
+# Generate scenarios automatically (scalable)
+# Instead of manually defining fixed percentages, you can use parameter lists:
+
+import itertools
+
+growth = [0.9, 1.0, 1.1]
+price_change = [0.95, 1.0, 1.05]
+cost_change = [0.95, 1.0, 1.1]
+
+scenarios = []
+
+for g, p, c in itertools.product(growth, price_change, cost_change):
+    scenario = {
+        "volume": base["volume"] * g,
+        "price": base["price"] * p,
+        "var_cost": base["var_cost"] * c,
+        "fixed_cost": base["fixed_cost"]
+    }
+    profit = calc_profit(scenario)
+    scenarios.append((g, p, c, profit))
+
+df = pd.DataFrame(scenarios, columns=["growth","price","cost","profit"])
+print(df)
